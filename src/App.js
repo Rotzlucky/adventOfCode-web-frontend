@@ -1,28 +1,57 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
 import './App.css';
+import jQuery from 'jquery';
+
+class Calendar extends Component {
+    render() {
+
+        const days = this.props.days.map((day, index) => {
+            return (
+                <a key={day.number} href="/2018/day/{day.number}">
+                    <div className="day-cell">
+                        <div className="day-cell-number">{day.number}</div>
+                        <div className="day-cell-label">{day.title}</div>
+                    </div>
+                </a>
+            )
+        });
+
+        return (
+            <div className="calendar-grid">{days}</div>
+        );
+    }
+}
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            days: [],
+        }
+    }
+
+    componentDidMount() {
+        jQuery.getJSON('http://localhost:9018/api/puzzle/')
+            .then((results) => {
+                this.setState({
+                    days: results,
+                });
+            });
+    }
+
+    render() {
+        return (
+            <div className="">
+                <h1>title</h1>
+                <h2>subTitle</h2>
+
+                <Calendar
+                    days={this.state.days}
+                />
+            </div>
+        );
+    }
 }
 
 export default App;
