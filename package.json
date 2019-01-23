@@ -11,7 +11,7 @@
   },
   "scripts": {
     "build-css": "node-sass src/scss -o src/",
-    "watch-css": "npm run build-css && node-sass src/ -o src/ --watch --recursive",
+    "watch-css": "npm run build-css && node-sass src/scss -o src/ --watch --recursive",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

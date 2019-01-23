@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import './App.css';
+import './main.css';
 import jQuery from 'jquery';
 
 class Calendar extends Component {
     render() {
 
-        const days = this.props.days.map((day, index) => {
+        const days = this.props.days.map((day) => {
             return (
                 <a key={day.number} href="/2018/day/{day.number}">
                     <div className="day-cell">
@@ -42,7 +42,7 @@ class App extends Component {
 
     render() {
         return (
-            <div className="">
+            <div>
                 <h1>title</h1>
                 <h2>subTitle</h2>
 
