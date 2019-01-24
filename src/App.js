@@ -28,23 +28,27 @@ class App extends Component {
         super(props);
         this.state = {
             days: [],
+            translations: {}
         }
     }
 
     componentDidMount() {
-        jQuery.getJSON('http://localhost:9018/api/puzzle/')
-            .then((results) => {
-                this.setState({
-                    days: results,
-                });
+        let days = jQuery.ajax('http://localhost:9018/api/puzzle');
+        let translations = jQuery.ajax('http://localhost:9018/api/i18n');
+
+        jQuery.when(days, translations).done((result1, result2) => {
+            this.setState({
+                days: result1[0],
+                translations: result2[0]
             });
+        });
     }
 
     render() {
         return (
             <div>
-                <h1>title</h1>
-                <h2>subTitle</h2>
+                <h1>{this.state.translations["title"]}</h1>
+                <h2>{this.state.translations["subTitle"]}</h2>
 
                 <Calendar
                     days={this.state.days}
