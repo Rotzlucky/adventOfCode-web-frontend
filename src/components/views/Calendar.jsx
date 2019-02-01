@@ -8,18 +8,15 @@ export default class Calendar extends Component {
         super(props);
         this.state = {
             days: [],
-            translations: {}
         }
     }
 
     componentDidMount() {
         let days = jQuery.ajax('http://localhost:9018/api/puzzle');
-        let translations = jQuery.ajax('http://localhost:9018/api/i18n');
 
-        jQuery.when(days, translations).done((result1, result2) => {
+        jQuery.when(days).done((result) => {
             this.setState({
-                days: result1[0],
-                translations: result2[0]
+                days: result
             });
         });
     }
@@ -39,8 +36,8 @@ export default class Calendar extends Component {
 
         return (
             <div>
-                <h1>{this.state.translations["title"]}</h1>
-                <h2>{this.state.translations["subTitle"]}</h2>
+                <h1>{this.props.translations["title"]}</h1>
+                <h2>{this.props.translations["subTitle"]}</h2>
                 <div className="calendar-grid">{days}</div>
             </div>
         );

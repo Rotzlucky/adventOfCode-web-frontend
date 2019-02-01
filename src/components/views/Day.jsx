@@ -2,20 +2,37 @@ import React, {Component} from 'react';
 import '../../main.css';
 import {Link} from 'react-router-dom'
 import jQuery from "jquery";
+import Error404 from '../error/Error404'
 
-export default class Day extends Component {
+class Day extends Component {
     constructor(props) {
         super(props);
         this.state = {
             day: [],
-            translations: {},
             solutions: [],
+            status: ""
         }
+    }
+
+    callApi(url) {
+        return jQuery.ajax(url)
+            .done((result) => {
+                this.setState({
+                    status: 'SUCCESS'
+                });
+                return result;
+            })
+            .fail(() => {
+                this.setState({
+                    status: 'ERROR'
+                });
+            });
     }
 
     handleClick() {
         const dayNumber = parseInt(this.props.match.params.number);
-        jQuery.ajax('http://localhost:9018/api/solution/' + dayNumber).then((result) => {
+
+        this.callApi(`http://localhost:9018/api/solution/${dayNumber}`).done((result) => {
             this.setState({
                 solutions: result
             });
@@ -24,13 +41,10 @@ export default class Day extends Component {
 
     componentDidMount() {
         const dayNumber = parseInt(this.props.match.params.number);
-        let day = jQuery.ajax('http://localhost:9018/api/puzzle/' + dayNumber);
-        let translations = jQuery.ajax('http://localhost:9018/api/i18n');
 
-        jQuery.when(day, translations).done((result1, result2) => {
+        this.callApi(`http://localhost:9018/api/puzzle/${dayNumber}`).done((result) => {
             this.setState({
-                day: result1[0],
-                translations: result2[0]
+                day: result
             });
         });
     }
@@ -46,16 +60,24 @@ export default class Day extends Component {
             )
         });
 
-        return (
+        const dayContent = (
             <div>
-                <Link to='/'>{this.state.translations["back"]}</Link>
+                <Link to='/'>{this.props.translations["back"]}</Link>
                 <h1>Day {dayNumber}</h1>
 
                 <button onClick={() => this.handleClick()}>
-                    {this.state.translations["getSolutions"]}
+                    {this.props.translations["getSolutions"]}
                 </button>
                 <div>{solutions}</div>
             </div>
         );
+
+        return (
+            <div>
+                {this.state.status === 'SUCCESS' ? dayContent : <Error404 translations={this.props.translations}/>}
+            </div>
+        );
     }
 }
+
+export default Day
