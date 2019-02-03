@@ -1,0 +1,9 @@
+{
+  "translations" : {
+    "Application Title": "Advent of Code",
+    "Sub Title": "An interactive web application based on the project by @ericwastl",
+    "Navigate back": "Back to Calendar",
+    "Get solutions": "Get Solutions",
+    "Resource not found": "Resource not found!"
+  }
+}

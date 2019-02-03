@@ -3,6 +3,7 @@ import '../../main.css';
 import {Link} from 'react-router-dom'
 import jQuery from "jquery";
 import Error404 from '../error/Error404'
+import {withNamespaces} from "react-i18next";
 
 class Day extends Component {
     constructor(props) {
@@ -50,6 +51,8 @@ class Day extends Component {
     }
 
     render() {
+        const { t } = this.props;
+
         const dayNumber = parseInt(this.props.match.params.number);
 
         const solutions = this.state.solutions.map((solution, index) => {
@@ -62,11 +65,11 @@ class Day extends Component {
 
         const dayContent = (
             <div>
-                <Link to='/'>{this.props.translations["back"]}</Link>
+                <Link to='/'>{t('Navigate back')}</Link>
                 <h1>Day {dayNumber}</h1>
 
                 <button onClick={() => this.handleClick()}>
-                    {this.props.translations["getSolutions"]}
+                    {t('Get solutions')}
                 </button>
                 <div>{solutions}</div>
             </div>
@@ -74,10 +77,10 @@ class Day extends Component {
 
         return (
             <div>
-                {this.state.status === 'SUCCESS' ? dayContent : <Error404 translations={this.props.translations}/>}
+                {this.state.status === 'SUCCESS' ? dayContent : <Error404/>}
             </div>
         );
     }
 }
 
-export default Day
+export default withNamespaces('translations')(Day);

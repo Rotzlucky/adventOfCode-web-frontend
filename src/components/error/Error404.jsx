@@ -1,10 +1,15 @@
 import React, {Component} from 'react';
 import '../../main.css';
+import {withNamespaces} from "react-i18next";
 
-export default class Error404 extends Component {
+class Error404 extends Component {
     render() {
+        const { t } = this.props;
+
         return(
-            <h1>{this.props.translations["notFound"]}</h1>
+            <h1>{t('Resource not found')}</h1>
         )
     }
 }
+
+export default withNamespaces('translations')(Error404);

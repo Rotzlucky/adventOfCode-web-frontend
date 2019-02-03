@@ -2,8 +2,9 @@ import React, {Component} from 'react';
 import '../../main.css';
 import jQuery from "jquery";
 import { Link } from 'react-router-dom'
+import {withNamespaces} from "react-i18next";
 
-export default class Calendar extends Component {
+class Calendar extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -22,6 +23,7 @@ export default class Calendar extends Component {
     }
 
     render() {
+        const { t } = this.props;
 
         const days = this.state.days.map((day) => {
             return (
@@ -36,10 +38,12 @@ export default class Calendar extends Component {
 
         return (
             <div>
-                <h1>{this.props.translations["title"]}</h1>
-                <h2>{this.props.translations["subTitle"]}</h2>
+                <h1>{t('Application Title')}</h1>
+                <h2>{t('Sub Title')}</h2>
                 <div className="calendar-grid">{days}</div>
             </div>
         );
     }
 }
+
+export default withNamespaces('translations')(Calendar);
