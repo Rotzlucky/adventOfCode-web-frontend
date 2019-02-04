@@ -1,0 +1,19 @@
+.day-layout {
+  min-height: 230px;
+  max-width: 800px;
+
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-evenly;
+
+  .day-solutions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+
+    .day-solution-label {
+      margin: 10px;
+    }
+  }
+}

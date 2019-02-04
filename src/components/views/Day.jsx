@@ -51,27 +51,25 @@ class Day extends Component {
     }
 
     render() {
-        const { t } = this.props;
-
-        const dayNumber = parseInt(this.props.match.params.number);
+        const {t} = this.props;
 
         const solutions = this.state.solutions.map((solution, index) => {
             return (
-                <li key={index}>
-                    <span>Solution for part {index + 1}: {solution}</span>
-                </li>
+                <span key={index} className='day-solution-label'>
+                    Solution for part {index + 1}: {solution}
+                </span>
             )
         });
 
         const dayContent = (
-            <div>
+            <div className='day-layout'>
                 <Link to='/'>{t('Navigate back')}</Link>
-                <h1>Day {dayNumber}</h1>
+                <h1>Day {this.state.day.number} - {this.state.day.title}</h1>
 
                 <button onClick={() => this.handleClick()}>
                     {t('Get solutions')}
                 </button>
-                <div>{solutions}</div>
+                <div className='day-solutions'>{solutions}</div>
             </div>
         );
 
