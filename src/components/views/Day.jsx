@@ -52,6 +52,7 @@ class Day extends Component {
 
     render() {
         const {t} = this.props;
+        const day = this.state.day;
 
         const solutions = this.state.solutions.map((solution, index) => {
             return (
@@ -64,7 +65,9 @@ class Day extends Component {
         const dayContent = (
             <div className='day-layout'>
                 <Link to='/'>{t('Navigate back')}</Link>
-                <h1>Day {this.state.day.number} - {this.state.day.title}</h1>
+                <h1>Day {day.number} - {day.title}</h1>
+
+                <a href={'https://adventOfCode.com/2018/day/' + day.number} target='_blank'>{t('Link to original puzzle description')}</a>
 
                 <button onClick={() => this.handleClick()}>
                     {t('Get solutions')}
