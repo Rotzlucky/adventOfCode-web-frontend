@@ -67,7 +67,9 @@ class Day extends Component {
                 <Link to='/'>{t('Navigate back')}</Link>
                 <h1>Day {day.number} - {day.title}</h1>
 
-                <a href={'https://adventOfCode.com/2018/day/' + day.number} target='_blank'>{t('Link to original puzzle description')}</a>
+                <a href={'https://adventOfCode.com/2018/day/' + day.number} target='_blank' rel='noopener noreferrer'>
+                    {t('Link to original puzzle description')}
+                </a>
 
                 <button onClick={() => this.handleClick()}>
                     {t('Get solutions')}
